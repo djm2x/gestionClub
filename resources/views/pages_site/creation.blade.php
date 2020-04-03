@@ -9,7 +9,7 @@ Création d'un nouveau membre
 @stop
 @section('content')
 
-<div class="formgroup">
+<div class="form-group">
 {{-- {!! Form::open(['url' => 'creation/membre']) !!} --}}
 {!! Form::model($membre,['url' => 'creation/membre']) !!}
     <div class="form-group">
@@ -35,9 +35,15 @@ Création d'un nouveau membre
 
     <p></p>
 
-    {!! Form::submit("Creation membre", ['class' => 'btn btn-primary']) !!}
+    @if (Auth::user()->isActive) 
+        <div class="d-flex flex-row-reverse">
+            {!! Form::submit("Creation membre", ['class' => 'btn btn-primary']) !!}
+        </div>
+    @endif
+
     {!! Form::close() !!}
 </div>
+
 
 @stop
 @section('pied_page')

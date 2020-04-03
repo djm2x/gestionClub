@@ -32,3 +32,8 @@ sqlite3 database/database.sqlite -cmd '.schema membres'
 composer require laravel/ui
 php artisan ui vue --auth 
  npm install && npm run dev 
+
+# semaine 4
+php artisan make:migration add_role_to_users_table --table=users
+
+php artisan make:middleware CheckIsActive

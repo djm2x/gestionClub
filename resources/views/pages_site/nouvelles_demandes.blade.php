@@ -8,7 +8,7 @@
 @stop
 
 @section('titre_contenu')
-    Liste des membres
+    Liste des nouvelles demandes
 @stop
 
 @section('content')
@@ -16,30 +16,21 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
-            
-            @if (Auth::check())
-                <th scope="col">Adresse email</th>
-            @endif
-            
+            <th scope="col">Email</th>
+            <th scope="col">Statut</th>
             <th scope="col">Option</th>
         </tr>
         </thead>
         <tbody>
-            @foreach ($les_membres as $membre)
+            @foreach ($users as $e)
                 <tr>
-                    <td>{{ $membre->nom }}</td>
-                    <td>{{ $membre->prenom }}</td>
-                   
-                    @if (Auth::check())
-                        <td>{{ $membre->adresse }}</td>
-                    @endif
+                    <td>{{ $e->name }}</td>
+                    <td>{{ $e->email }}</td>
+                    <td>{{ $e->isActive ? 'Actif' : 'Pas actif' }}</td>
                     <td>
-                        @if (Auth::id() == $membre->idUser ) 
-                            <a class="btn btn-success" href="/modifier/{{ $membre->id }}">Modifier</a>
-                        @else
-                        --
-                        @endif
+                        <a class="btn btn-warning" href="/changeStatusAccount/{{ $e->id }}">
+                            {{ $e->isActive ? 'Désactiver' : 'Activer'}}
+                        </a>
                     </td>
                 </tr>
             @endforeach

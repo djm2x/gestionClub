@@ -51,6 +51,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/membres')}}">Members</a>
                 </li>
+                @if (Auth::check() && Auth::user()->isAdmin())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/nouvellesDemandes')}}">Nouvelles demandes</a>
+                    </li>
+                @endif
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">

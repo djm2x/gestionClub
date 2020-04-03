@@ -37,6 +37,10 @@ Route::get('membres', 'ControleurMembres@index');
 Route::get('creer', 'ControleurMembres@creer')->middleware('auth');
 Route::post('creation/membre', 'ControleurMembres@enregistrer')->middleware('auth');
 
+//changeStatusAccount
+Route::get('nouvellesDemandes', 'ControleurMembres@nouvellesDemandes');
+Route::get('changeStatusAccount/{id}', 'ControleurMembres@changeStatusAccount')->middleware('auth');
+
 //patch
 Route::get('modifier/{id}', 'ControleurMembres@editer')->middleware('auth');
 Route::patch('miseAJour/{id}', 'ControleurMembres@miseAJour')->middleware('auth');

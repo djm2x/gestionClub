@@ -19,6 +19,13 @@
 <body>
     @include('navbar')
     <div class="container" style="margin-top: 65px">
+
+        @if (Auth::check() && !Auth::user()->isActive)
+            <div class="alert alert-warning" role="alert">
+                {{Auth::user()->name}} : votre compte compte est pas encore activé par administration
+            </div>
+        @endif
+
         <div class="titre_contenu"> @yield('titre_contenu') </div>
         {{-- <div class="content"> @yield('content') </div> --}}
         <main class="py-4">

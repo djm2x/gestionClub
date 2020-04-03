@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Biographie;
 use App\Membre;
+use App\User;
 // Obligatoire pour avoir accès au modèle
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -14,12 +15,14 @@ class ControleurMembres extends Controller
 {
     // des variables
     protected $les_membres;
+    protected $users;
     protected $biographies;
     protected $soumissions;
 
-    public function __construct(Membre $membres, Biographie $biographies, Request $requetes)
+    public function __construct(Membre $membres, User $users, Biographie $biographies, Request $requetes)
     {
         $this->les_membres = $membres;
+        $this->users = $users;
         $this->biographies = $biographies;
         $this->soumissions = $requetes;
     }
@@ -53,6 +56,21 @@ class ControleurMembres extends Controller
     {
         $les_membres = $this->les_membres->all();
         return view('pages_site/consultation_edition', compact('les_membres'));
+    }
+
+    public function nouvellesDemandes()
+    {
+        $users = $this->users->where('isActive', false)->get();
+        return view('pages_site/nouvelles_demandes', compact('users'));
+    }
+
+    public function changeStatusAccount($id)
+    {
+        $user = Auth::user()->find($id);
+        $user->isActive = !$user->isActive;
+        $user->save();
+
+        return redirect('nouvellesDemandes');
     }
 
     public function afficher($numero)

@@ -9,30 +9,35 @@ Modification des infos du membre
 @stop
 @section('content')
 
-<div class="formgroup">
+<div class="form-group">
 {!! Form::model($un_membre,['url' => url('miseAJour',$un_membre->id),'method' => 'PATCH']) !!}
-    <div class="formgroup">
-	{{ Form::label('nom', 'Nom') }}
-	{{ Form::text('nom') }}
+    <div class="form-group">
+        {{ Form::label('nom', 'Nom') }}
+        {{ Form::text('nom', null, ['class' => 'form-control']) }}
 	</div>
-   <div class="formgroup">
+   <div class="form-group">
         {{ Form::label('prenom', 'Prenom :') }}
         {{ Form::text('prenom', null, ['class' => 'form-control', 'readonly']) }}
     </div>
-    <div class="formgroup">
+    <div class="form-group">
         {{ Form::label('adresse', 'Adresse électronique') }}
         {{ Form::text('adresse', null, ['class' => 'form-control', 'readonly']) }}
     </div>
-    <div class="formgroup">
+    <div class="form-group">
         {!! Form::label('description', 'Description') !!}
-        {!! Form::textarea('description', null, ['class' => 'formcontrol', 'rows' => '2','required'])!!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '2','required'])!!}
     </div>
 
     {!! Form::hidden('idUser', 'idUser') !!}
 
     <p></p>
 
-    {!! Form::submit("Modifier membre", array('class' => 'btn btn-info')) !!}
+    @if (Auth::user()->isActive) 
+        <div class="d-flex flex-row-reverse">
+            {!! Form::submit("Modifier membre", array('class' => 'btn btn-primary')) !!}
+        </div>
+    @endif
+
     {!! Form::close() !!}
 </div>
 
